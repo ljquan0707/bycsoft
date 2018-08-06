@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<service name="wstest" scope="application">
+	<description>Contrast standard drug</description>
+	<parameter name="ServiceObjectSupplier">org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier
+	</parameter>
+	<parameter name="SpringBeanName">WsTest</parameter>
+	<operation name="login">
+		<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+			class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+	</operation>
+
+</service>

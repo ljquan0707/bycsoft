@@ -1,0 +1,268 @@
+body, div, dl, dt, dd, h1, h2, h3, h4, h5, h6, p, form, fieldset, legend,
+	input {
+	margin: 0;
+	padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+
+img, fieldset {
+	border: 0 none;
+	display: block;
+}
+
+body {
+	background: white;
+}
+
+#pic {
+	position: relative;
+	width: 220px;
+	height: 220px;
+	margin: 13px 30px;
+}
+
+.panl {
+	margin: 20px;
+}
+
+img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+#piccenter {
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	background-color: white;
+	position: absolute;
+	top: 88px;
+	left: 88px;
+}
+
+#main {
+	width: 160px;
+	background-color: #efe9e9;
+	height: 5px;
+	vertical-align: middle;
+	border-radius: 5px;
+	display: inline-block;
+	margin-left: 9px;
+	margin-top: 20px;
+}
+
+#bar {
+	border-radius: 5px;
+	height: 7px;
+	background-color: #00F;
+	position: absolute;
+	top: 19px;
+	left: 59px;
+}
+
+#playtime {
+	position: relative;
+	height: 23px;
+}
+
+#startime {
+	float: left;
+	width: 33px;
+	margin-left: 9px;
+	margin-top: 9px;
+}
+
+#endtime {
+	float: right;
+	width: 53px;
+	margin-top: 9px;
+}
+
+#panl {
+	position: relative;
+	z-index: 3;
+	float: left;
+	background-image: url(../../img/music/music.png);
+	background-repeat: no-repeat;
+	box-shadow: 10px 10px 5px #888888;
+	width: 282px;
+	height: 381px;
+	background-color: gray;
+	padding: 10px;
+	border-radius: 5px;
+	border: 3px solid black;
+}
+
+#butt {
+	position: relative;
+}
+
+.vol {
+	position: absolute;
+	background-image: url(../../img/music/btn.png);
+	background-position: -223px -50px;
+	width: 31px;
+	height: 31px;
+	border-radius: 26%;
+	top: 14px;
+	left: 12px;
+}
+
+.volmin {
+	position: absolute;
+	background-image: url(../../img/music/btn.png);
+	background-position: -60px -5px;
+	width: 31px;
+	height: 31px;
+	border-radius: 26%;
+	top: 14px;
+	left: 12px;
+}
+
+#prev {
+	position: absolute;
+	background-image: url(../../img/music/btn.png);
+	background-position: -272px -45px;
+	width: 37px;
+	height: 37px;
+	border-radius: 26%;
+	top: 5px;
+	left: 66px;
+}
+
+#next {
+	position: absolute;
+	background-image: url(../../img/music/btn.png);
+	background-position: -218px 0px;
+	width: 37px;
+	height: 37px;
+	border-radius: 25%;
+	top: 5px;
+	left: 183px;
+}
+
+.play {
+	position: absolute;
+	background-image: url(../../img/music/btn.png);
+	background-position: -271px 1px;
+	width: 40px;
+	height: 40px;
+	border-radius: 25%;
+	top: 2px;
+	left: 122px;
+}
+
+.puse {
+	position: absolute;
+	background-image: url(../../img/music/btn.png);
+	background-position: 0px 1px;
+	width: 40px;
+	height: 40px;
+	border-radius: 25%;
+	top: 2px;
+	left: 122px;
+}
+
+#list {
+	position: absolute;
+	background-image: url(../../img/music/btn.png);
+	background-position: -5px -47px;
+	width: 32px;
+	height: 32px;
+	border-radius: 25%;
+	top: 13px;
+	left: 238px;
+}
+
+#musiclist {
+	z-index: 2;
+	float: left;
+	width: 300px;
+	height: 400px;
+	background-image: url(../../img/music/view.png);
+	margin-top: 4px;
+	border-radius: 13px;
+	box-shadow: 7px 9px 7px cadetblue;
+}
+
+#nowplay {
+	height: 25px;
+	width: 230px;
+	margin-left: 24px;
+	color: red;
+}
+
+#volnum {
+	position: absolute;
+	width: 116px;
+	height: 19px;
+	background-color: #969696;
+	margin: 17px 44px;
+	display: none;
+	border-radius: 5px;
+}
+
+.lineDiv {
+	height: 5px;
+	background: red;
+	width: 103px;
+	margin: 7px 5px;
+}
+
+.lineDiv .minDiv {
+	position: absolute;
+	top: 2px;
+	left: 25px;
+	width: 7px;
+	height: 15px;
+	background: green;
+	cursor: pointer
+}
+
+.lineDiv .minDiv .vals {
+	position: absolute;
+	font-size: 20px;
+	top: -36px;
+	left: -8px;
+	width: 23px;
+	height: 28px;
+	line-height: 27px;
+	text-align: center;
+	background: #969696;
+	border-radius: 7px;
+}
+
+.lineDiv .minDiv .vals:after {
+	content: "";
+	width: 2px;
+	height: 0px;
+	border-top: 6px solid #969696;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 6px solid transparent;
+	display: block;
+	margin-left: 5px;
+}
+
+ol li {
+	font-size: 14px;
+	height: 25px;
+	line-height: 16px;
+	width: 330px;
+	white-space: nowrap; 
+	
+	 text-overflow: ellipsis; 
+	 -o-text-overflow: ellipsis;
+	
+
+}
+
+ol li:hover {
+	font-size: 15px;
+	color: red;
+}

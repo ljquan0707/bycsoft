@@ -1,0 +1,42 @@
+#top{
+	height:646px;
+	width:1024px;
+	background-image: url("../img/login.jpg");
+	margin: 0 auto;
+	}
+	h1{text-align:center;color:#fff;margin-left:-25px;font-size:35px;font-weight: bold;text-shadow: 0px 1px 1px #555;}
+h1 sup{
+    font-size: 18px;
+    font-style: normal;
+    position: absolute;
+    margin-left: 10px;}
+    #un{
+    position:absolute;
+    margin-top:125px;
+    margin-left: 310px;
+    }
+    #pw{
+   
+     position:absolute;
+     margin-top:165px;
+    margin-left: 310px;
+    }
+    #reset{
+     position:absolute;
+     margin-top:205px;
+    margin-left: 345px;
+    }
+     #load{
+     position:absolute;
+     margin-top:205px;
+     margin-left: 420px;
+    }
+    #find{
+     position:absolute;
+     margin-top:235px;
+     margin-left: 380px;
+    }
+    input{
+    width: 110px;
+   padding-right: 1px;
+    }

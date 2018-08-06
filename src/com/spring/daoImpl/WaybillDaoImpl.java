@@ -1,0 +1,104 @@
+package com.spring.daoImpl;
+
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Component;
+
+import com.spring.dao.ShipperDao;
+import com.spring.dao.WaybillDao;
+@Component("waybilldao")
+public class WaybillDaoImpl implements WaybillDao {
+	@Resource(name="sessionFactory")
+	private SessionFactory sf;
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
+	}
+
+	@Override
+	public void save(String[] arr,int[] array) {
+		Session session=sf.getCurrentSession();
+		String sql="insert into waybill set waybillno='"+arr[0]+"'" +
+				                            ",ysfs='"+arr[1]+"'" +
+				                            ",customerid='"+arr[2]+"'" +
+				                            ",fromcity='"+arr[3]+"'" +
+				                            ",tocity='"+arr[4]+"'" +
+				                            ",shipperid='"+array[0]+"'" +
+				                            ",consigneeid='"+array[1]+"'" +
+				                            ",hwmc='"+arr[13]+"'" +
+				                            ",js='"+arr[14]+"'" +
+				                            ",bz='"+arr[15]+"'" +
+				                            ",mz='"+arr[16]+"'" +
+				                            ",size='"+arr[17]+"'" +
+				                            ",sjzl='"+arr[18]+"'" +
+				                            ",tj='"+arr[19]+"'" +
+				                            ",fl='"+arr[20]+"'" +
+				                            ",yf='"+arr[21]+"'" +
+				                            ",sftb='"+arr[22]+"'" +
+				                            ",bxje='"+arr[23]+"'" +
+				                            ",fkfs='"+arr[24]+"'" +
+				                            ",fkje='"+arr[25]+"'" +
+				                            ",thfs='"+arr[26]+"'" +
+				                            ",qtfy='"+arr[27]+"'" +
+				                            ",zdr='"+arr[28]+"'" +
+				                            ",bf='"+arr[29]+"'" +
+				                            ",beiz='"+arr[30]+"'" +
+				                            ",qsr='"+arr[31]+"'" +
+				                            ",state='"+arr[32]+"'" +
+				                            ",fymc='"+arr[33]+"'" +
+				                            ",zdsj='"+arr[5]+"'";
+			
+		session.createSQLQuery(sql).executeUpdate();
+	
+	}
+
+	@Override
+	public int count() {
+		Session session=sf.getCurrentSession();
+		String hql="select count(*) from Waybill";
+		int count=Integer.parseInt(session.createSQLQuery(hql).list().get(0).toString());
+	    return count;
+	}
+
+	@Override
+	public List waybill(int limit, int offset) {
+		Session session=sf.getCurrentSession();
+		String sql="select w.id,w.waybillno,w.fromcity,w.tocity,c.customername,w.hwmc,w.js,w.bz,w.mz,w.sjzl,w.size,w.thfs,DATE_FORMAT(w.zdsj,'%Y-%m-%d %T' ),w.state from waybill w, customer c where w.customerid=c.customerid";
+		List waybill=session.createSQLQuery(sql).setFirstResult(offset).setMaxResults(limit).list();
+		return waybill;
+	}
+
+	@Override
+	public List searchwaybill(Map map) {
+		Session session=sf.getCurrentSession();
+		String sql="select @rownum\\:=@rownum+1 AS id,w.waybillno,w.fromcity,w.tocity,c.customername,w.hwmc,w.js,w.bz,w.mz,w.sjzl,w.size,w.thfs,DATE_FORMAT(w.zdsj,'%Y-%m-%d %T' ),w.state from (SELECT @rownum\\:=0) temp,waybill w, customer c where w.customerid=c.customerid";
+		if(!map.get("waybillno").equals("")&&map.get("waybillno")!=null) {
+			sql=sql+" and waybillno="+map.get("waybillno")+"";
+		}
+		if(!map.get("tocity").equals("")&&map.get("tocity")!=null) {
+			sql=sql+" and tocity='"+map.get("tocity")+"'";
+		}
+		if(!map.get("js").equals("")&&map.get("js")!=null) {
+			sql=sql+" and js="+map.get("js")+"";
+		}
+		if(!map.get("customername").equals("")&&map.get("customername")!=null) {
+			sql=sql+" and customername='"+map.get("customername")+"'";
+		}
+		if((!map.get("datetimeStart").equals("")&&map.get("datetimeStart")!=null) && (!map.get("datetimeEnd").equals("")||map.get("datetimeEnd")!=null)) {
+			sql=sql+" and zdsj>='"+map.get("datetimeStart")+"' and zdsj<='"+map.get("datetimeEnd")+"'";
+		}
+		
+		
+		List waybill=session.createSQLQuery(sql).list();
+		return waybill;
+	}
+
+}

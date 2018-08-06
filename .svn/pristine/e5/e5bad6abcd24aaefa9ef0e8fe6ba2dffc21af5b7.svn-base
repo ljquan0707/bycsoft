@@ -1,0 +1,63 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%> 
+<!doctype html>
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<title>音乐</title> 
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/music/music.css"></link>
+<script src="<%=request.getContextPath()%>/js/jquery-1.8.3.min.js" ></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/music/music.js"></script>
+</head>
+<body onLoad="play();">
+<input style="display: none;" id="site" value="<%=request.getContextPath()%>">
+<br>
+ <div class="panl">
+<div id="panl" style="margin-left:0px;">
+<div id="pic">
+<img id="imagecreter" src="../../img/music/bg.png"/>
+<div id="piccenter"></div>
+</div>
+	<marquee style="WIDTH: 212px; HEIGHT: 25px;margin-left:34px;margin-top:7px;" scrollamount="3" direction="left" ><div id="nowplay">网络歌手 - 男人花 (女声版).mp3</div></marquee>
+<audio id='test' src="<%=request.getContextPath()%>/music/aa.mp3"></audio>
+<div id="playtime">
+&nbsp;<div id="startime">00:00</div>&nbsp;<div id="main"><div id="bar"></div>&nbsp;
+</div><div id="endtime">00:00</div>
+</div>
+<br>
+<div id="butt">
+	
+	<button id="vol" onClick="showvol()" class="vol" title="音量"></button>
+	<button id="prev" onClick="prev()" title="上一曲"></button>
+    <button id='name' class="puse" onclick='play();' title="播放/暂停"></button>
+    <button id="next" onclick='next();' title="下一曲"></button>
+	<button id="list" onClick="openmusic()" title="列表"></button>
+	<div id="volnum" >
+  <div id="lineDiv" class="lineDiv">
+   <div id="minDiv" class="minDiv" onmousedown="tuod()" >
+    <div id="vals" class="vals">20</div>
+   </div>
+  </div>
+	</div>
+</div>
+	 
+ </div>
+ <div id="musiclist" style="margin-left:-300px;">
+ <ol class="second-tag">
+	<li><a  class="tag-name">网络歌手 - 男人花 (女声版).mp3</a></li>
+    <li><a  class="tag-name">王铮亮 - 时间都去哪儿了 (Live).mp3</a></li>
+    <li><a  class="tag-name">翁素英 - 人在旅途.mp3</a></li>
+    <li><a  class="tag-name">易欣 - 孤独的人并不寂寞.mp3</a></li>
+    <li><a  class="tag-name">岳思思 - 为你而痛.mp3</a></li>
+	<li><a  class="tag-name">双笙 - We Don't Talk Anymore.mp3</a></li>
+    <li><a  class="tag-name">孙露 - 酒干倘卖无.mp3</a></li>
+    <li><a  class="tag-name">孙露 - 下辈子也要找到你.mp3</a></li>
+    <li><a  class="tag-name">孙露 - 再度重相逢.mp3</a></li>
+</ol></div> 
+</div>
+ </body>
+<script type="text/javascript">
+
+</script>
+</html>

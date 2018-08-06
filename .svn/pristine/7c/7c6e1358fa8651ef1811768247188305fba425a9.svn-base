@@ -1,0 +1,309 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Insert title here</title>
+<link href="<%=request.getContextPath()%>/css/bootstrap.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/bootstrap-table.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
+    <script src="<%=request.getContextPath()%>/js/jquery-1.8.3.min.js" ></script><!-- BASIC JQUERY 1.8.3 LIB. JS -->
+    <script src="<%=request.getContextPath()%>/js/bootstrap.min.js" ></script><!-- BOOTSTRAP JS -->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.js"></script>
+    <script src="<%=request.getContextPath()%>/js/bootstrap-table-export.min.js"></script>
+    <script src="<%=request.getContextPath()%>/js/bootstrap-datetimepicker.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/waybill/load.js"></script>
+<style type="text/css">
+.my-container {
+    float: left;
+    display: inline-block;
+    margin-right:25px;
+}
+
+.myLabel-content ,.myText-content,.myBtn-content{
+    
+    display: inline-block;
+    margin-left: 10px;
+}
+.myLabel-content,.myText-content input[type='text'],.myBtn-content .btn {
+    height: 25px;
+    font-size: 12px;
+}
+.myBtn-content .btn {
+    margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+<input style="display:none;" id="site" value="<%=request.getContextPath()%>" >
+   <div class="panel panel-default">
+	     <div class="panel-heading">查询</div>
+		<div class="panel-body">
+	  	<div class='row'>
+			<div class="col-md-3">
+				 <label class="myLabel-content">运单号：</label>
+        		 <div class="myText-content">
+           		 <input id="waybillno" type="text" class="form-control" placeholder="输入乘车码">
+        		 </div>
+		   </div>
+		   <div class="col-md-3">
+		    	 <label class="myLabel-content">目的地：</label>
+       			 <div class="myText-content">
+           		 <input id="tocity" type="text" class="form-control" placeholder="输入目的地">
+        		 </div>
+	 	  </div>
+		  <div class="col-md-3">
+				<label class="myLabel-content">件数：</label>
+        		<div class="myText-content">
+            	<input id="js" type="text" class="form-control" placeholder="输入件数">
+        	    </div>
+	      </div>
+	   </div>
+	   <div class='row'>
+	     <div class="col-md-3">
+				<label class="myLabel-content">发货人：</label>
+        	    <div class="myText-content">
+                <input id="customername" type="text" class="form-control" placeholder="输入发货人">
+               </div>
+	     </div>
+	 	 
+		<div class="col-md-6">
+				<label class="myLabel-content">时间：</label>
+       			 <div class="myText-content">
+            	<input id="datetimeStart" type="text" class="form-control" placeholder="输入开始时间"  readonly >
+            	 
+        		</div>
+        		--
+       			 <div class="myText-content">
+            	<input id="datetimeEnd" type="text" class="form-control" placeholder="输入结束时间" readonly="readonly">
+            	<span class="add-on">
+                           
+                        </span>
+        		</div>
+        		
+		</div>
+		<div class="col-md-2">
+			<div class="myBtn-content">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button id='search' type="button" class="btn btn-primary">查找</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button id='reset' type="button" class="btn">重置</button>
+			
+			</div>
+		</div>
+		
+	</div>
+    	       
+	   </div>
+	</div>
+	
+
+ <table id="ArbetTable"></table>
+     
+</body>
+<script type="text/javascript">
+var site=$("#site").val();
+	$(function(){
+		var oTable=new TableInit();
+		oTable.Init();
+		var oButtonInit = new ButtonInit();
+		 oButtonInit.Init();
+	});
+	var TableInit = function () {
+	    var oTableInit = new Object();
+	    //初始化Table
+	    oTableInit.Init = function () {
+	        $('#ArbetTable').bootstrapTable({
+	            url: site+'/getDate.do',         //请求后台的URL（*）
+	            method: 'get',                      //请求方式（*）
+	            toolbar: '#toolbar',                //工具按钮用哪个容器
+	            striped: true,                      //是否显示行间隔色
+	            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+	            pagination: true,                   //是否显示分页（*）
+	            sortable: true,                     //是否启用排序
+	            sortOrder: "asc",                   //排序方式
+	            queryParams: oTableInit.queryParams,//传递参数（*）
+	            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+	            pageNumber: 1,                       //初始化加载第一页，默认第一页
+	            pageSize: 15,                       //每页的记录行数（*）
+	            pageList: [15,30,45],        //可供选择的每页的行数（*）
+	            search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+	            contentType: "application/x-www-form-urlencoded",
+	            strictSearch: true,
+	            showColumns: true,                  //是否显示所有的列
+	            showRefresh: true,                  //是否显示刷新按钮
+	            minimumCountColumns: 4,             //最少允许的列数
+	            clickToSelect: true,                //是否启用点击选中行
+	            height: 550,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+	            uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+	            /* showToggle: true,  */                   //是否显示详细视图和列表视图的切换按钮
+	            cardView: false,                    //是否显示详细视图
+	            detailView: false,   				//是否显示父子表
+	            showExport: true,  //是否显示导出按钮  
+	            buttonsAlign:"right",  //按钮位置  
+	            exportTypes:['excel',],  //导出文件类型  
+	            
+	            
+	            columns: [{
+	            	 checkbox: true
+	            },
+	            {
+	                field: 'id',
+	                title: '序号',
+	                align:"center",
+	            }, {
+	                field: 'waybillno',
+	                title: '运单号',
+	                align:"center"
+	            }, {
+	                field: 'fromcity',
+	                title: '始发地',
+	                align:"center"
+	            },{
+	                field: 'tocity',
+	                title: '目的地',
+	                align:"center"
+	            },{
+	                field: 'customername',
+	                title: '发货人',
+	                align:"center"
+	            },{
+	                field: 'hwmc',
+	                title: '名称',
+	                align:"center"
+	            },{
+	                field: 'js',
+	                title: '件数',
+	                align:"center"
+	            },{
+	                field: 'bz',
+	                title: '包装',
+	                align:"center"
+	            },{
+	                field: 'mz',
+	                title: '毛重',
+	                align:"center"
+	            },{
+	                field: 'sjzl',
+	                title: '重量',
+	                align:"center"
+	            },{
+	                field: 'size',
+	                title: '尺寸',
+	                align:"center"
+	            },{
+	                field: 'thfs',
+	                title: '提货方式',
+	                align:"center"
+	            },{
+	                field: 'zdsj',
+	                title: '时间',
+	                align:"center"
+	            },{
+	                field: 'state',
+	                title: '状态',
+	                align:"center"
+	            }
+	            
+	            ],
+	            rowStyle: function (row, index) {
+	                var classesArr = ['success', 'info'];
+	                var strclass = "";
+	                if (index % 2 === 0) {//偶数行
+	                    strclass = classesArr[0];
+	                } else {//奇数行
+	                    strclass = classesArr[1];
+	                }
+	                return { classes: strclass };
+	            },//隔行变色
+	            rowStyle: function (row, index) {
+	                //这里有5个取值代表5中颜色['active', 'success', 'info', 'warning', 'danger'];
+	                var strclass = "";
+	                if (row.state == "已完成") {
+	                    strclass = 'success';//还有一个active
+	                }
+	                else if (row.state == "已删除") {
+	                    strclass = 'danger';
+	                }
+	                else {
+	                    return {};
+	                }
+	                return { classes: strclass }
+	            },
+	            onLoadError: function () {
+	            	parent.tip('系统提示','数据加载失败，请查正');
+                },
+                onDblClickRow: function (row, $element) {
+                    var id = row.ID;
+                    EditViewById(id, 'view');
+                },
+	        });
+
+	    };
+	   
+
+	    //得到查询的参数
+	    oTableInit.queryParams = function (params) {
+	    	console.log(params)
+	        var params = {
+	    		search:params.search,//这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+	            limit: params.limit,   //页面大小
+	            offset:params.offset
+	        };
+	        return params;
+	        alert(params);
+	    };
+	    return oTableInit;
+	};
+	 $('#search').click(function () {
+         var tocity = $('#tocity').val();
+         var customername = $('#customername').val();
+         var waybillno=$('#waybillno').val();
+         var js=$('#js').val();
+         var datetimeStart=$('#datetimeStart').val();
+         var datetimeEnd=$('#datetimeEnd').val();
+         
+         $('#ArbetTable').bootstrapTable('refresh', {url: site+'/search.do?waybillno=' + waybillno + '&customername=' +customername+ '&tocity=' +tocity+ '&js=' +js+ '&datetimeStart=' +datetimeStart+ '&datetimeEnd=' +datetimeEnd });
+     });
+     $('#reset').click(function() {
+    	 $('#fromcity').val("");
+    	 $('#customername').val("");
+    	 $('#waybillno').val("");
+    	 $('#js').val("");
+    	 $('#datetimeStart').val("");
+    	 $('#datetimeEnd').val("");
+         
+     });
+	
+	 function operateFormatter(value, row, index) {//赋予的参数
+	    return [
+	        '<a class="btn active disabled" href="#">编辑</a>',
+	        '<a class="btn active" href="#">档案</a>',
+	        '<a class="btn btn-default" href="#">记录</a>',
+	        '<a class="btn active" href="#">准入</a>'
+	    ].join('');
+	} 
+	 $("#datetimeEnd").datetimepicker({
+	        format: 'yyyy-mm-dd',
+	        minView:'month',
+	        language: 'zh-CN',
+	        autoclose:true,
+	        todayBtn: 'linked',
+	        endDate:new Date()
+	    }).on("click",function(){
+	        $("#datetimeEnd").datetimepicker("setStartDate",$("#datetimeStart").val())
+	    });
+	 $("#datetimeStart").datetimepicker({
+	        format: 'yyyy-mm-dd',
+	        minView:'month',
+	        language: 'zh-CN',
+	        autoclose:true,
+	        todayBtn: 'linked',
+	        endDate:new Date()
+	    }).on("click",function(){
+	        $("#datetimeStart").datetimepicker("setEndDate",$("#datetimeEnd").val())
+	    });
+	    
+</script>
+</html>

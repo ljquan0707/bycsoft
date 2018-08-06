@@ -1,0 +1,21 @@
+package com.spring.utill;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Utill {
+	public static String Datetime(){
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date d = new Date();
+		String dd = format.format(d);
+		return dd;
+	}
+	public static String Date(){
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = new Date();
+		String dd = format.format(d);
+		return dd;
+	}
+
+}

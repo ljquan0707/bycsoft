@@ -1,0 +1,118 @@
+body{
+	
+}
+#top {
+	font: 13px 楷体;
+	background-color: D7D2CF;
+	margin: 2px;
+	padding: 4px;
+}
+
+fieldset {
+	background-color: D7D2CF;
+}
+
+legend {
+	font-size: 12px;
+	font-style: oblique;
+}
+
+label {
+	margin-right: 30px;
+	font: 13px 楷体;
+}
+
+input {
+	font: 13px 楷体;
+	width: 120px;
+	border-radius: 3px;
+	border: 1px #a29393 solid;
+	padding-left: 3px;
+}
+input:focus{
+	border: 1px blue solid;
+}
+#hwxx input {
+	width: 60px;
+	font: 13px 楷体;
+}
+
+select {
+	font: 13px 楷体;
+	border-radius: 3px;
+	border-color: #3399FF;
+}
+
+#size {
+	width: 234px;
+	height: 210px;
+	position: absolute;
+	top: 46%;
+	left: 76%;
+	background-color: #E7E7E7;
+	z-index: 3;
+	display: none;
+	overflow: auto;
+	font: 13px 楷体;
+}
+#result {
+	width: 800px;
+	height: 160px;
+	position: absolute;
+	top: 150px;
+	left: 260px;
+	background-color: #E7E7E7;
+	z-index: 3;
+	border-radius:4px;
+	display: none;
+	border: 1px black solid;
+	padding: 0px 2px;
+	font: 13px 楷体;
+}
+#result .show{
+	background-color: #64D364;
+	 height:25px; 
+	 padding-top: 7px;
+	font: 13px 楷体;
+}
+
+#size input {
+	width: 30px;
+	font: 13px 楷体;
+}
+
+#test {
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	opacity: 0.5;
+	/*兼容IE8及以下版本浏览器*/
+	filter: alpha(opacity = 30);
+	display: none;
+	font: 13px 楷体;
+}
+.btn {
+    background-color: #e1e1e1;
+    width:30px;
+    height: 25px;
+   	border-radius:5px;
+}
+
+
+.btn:hover {
+    background-color: #ccc;
+}
+#showresult{ 
+text-align: center; 
+width: 101%; 
+font: 13px 楷体;
+} 
+.tip{
+	color: red;
+	font-size: 13px;
+}
+

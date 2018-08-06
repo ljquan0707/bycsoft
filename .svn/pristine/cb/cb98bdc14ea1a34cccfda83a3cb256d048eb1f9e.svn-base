@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+		<property name="hbm2ddl.auto">update</property>
+        
+        <!-- 注解类映射配置 -->
+		 <mapping class="com.spring.pojo.User"/> 
+		 <mapping class="com.spring.pojo.Login"/> 
+		 <mapping class="com.spring.pojo.Role"/>
+		 <mapping class="com.spring.pojo.Goodprice"/>
+		 <mapping class="com.spring.pojo.Customer"/>
+		 <mapping class="com.spring.pojo.Menu"/> 
+		 <mapping class="com.spring.pojo.MenuList"/>
+		 <mapping class="com.spring.pojo.Menu_Role"/>     
+    </session-factory>
+
+</hibernate-configuration>
+
+
+
+
+
+
+
+
+
