@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,13 +43,13 @@ public class GoodpriceController {
 	}
 
 	@RequestMapping(value = "loadprice.do", method = RequestMethod.POST)
-	public String saveDriver(MultipartFile UploadFile, HttpSession session)
+	public String saveDriver(MultipartFile UploadFile, HttpSession session,HttpServletRequest req)
 			throws Exception {
 
 		String filename = UploadFile.getOriginalFilename();
-
+		String username=req.getParameter("username");		
 		String leftPath = session.getServletContext().getRealPath("/excel");
-
+		System.out.println("================"+username);
 		File file = new File(leftPath, filename);
 
 		if (file.exists()) {
@@ -59,7 +60,7 @@ public class GoodpriceController {
 			file.getParentFile().mkdirs();
 			UploadFile.transferTo(file);
 		}
-		System.out.println(file);
+		
 		ExcelUtilForPOI poiTest = new ExcelUtilForPOI();
 		String fileURL = leftPath + "/" + filename;
 		List<String[]> list = poiTest.getData(fileURL);
@@ -85,6 +86,7 @@ public class GoodpriceController {
 				gp.setNo4(list.get(1)[5]);
 				gp.setNo5(list.get(1)[6]);
 				gp.setCreatetime(date);
+				gp.setUsername(username);
 				List pricelist = gps.selectprice(list.get(0)[0]);
 				if (pricelist.isEmpty()) {
 					gps.add(gp);

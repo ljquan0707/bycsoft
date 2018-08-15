@@ -15,34 +15,90 @@ pageEncoding="UTF-8"%>
 <title>文件上传</title>
 <style type="text/css">
 	table tr td{
-	border: 1px solid black;
+	border: 1px solid #337ab7;
+	width: 31px;
 	}
+	.tip{
+	display:none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top:0px;
+	left: 0px;
+	opacity: 0.9;
+	z-index: 3;
+	background-color: gray;
+	}
+	#info{
+		border: 1px solid white;
+		width: 95.8%;
+		height: 73%;
+		padding-bottom: 60px;
+		display: none;
+		position: absolute;
+		top:14%;
+		left:0px;
+		z-index: 4;
+		overflow: auto;
+		margin: 2%;
+	
+	}
+	.title{
+	position: absolute;
+	top:2%;
+	left:0px;
+	z-index: 4;
+	height: 43px;
+	width: 96%;
+	background-color: #33f9678c;
+	font:normal 16px/40px Georgia,serif;
+	display: none;
+	text-align: center;
+	margin: 2%;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	}
+	.tablehead{
+	position: absolute;
+	top:12%;
+	left:2%;
+	z-index: 5;
+	height: 35px;
+	width: 96%;
+	background-color:orange;
+	display: none;
+	text-align: center;
+	}
+	
 </style> 
 </head>
 <body bgcolor="#F0FAFC"><br>
 <input style="display: none;" id="site" value="<%=request.getContextPath()%>">
 <form method="post" action="<%=request.getContextPath()%>/loadprice.do" enctype="multipart/form-data">
 <label style="font-size: 12px;">运价上传：</label>
+<input style="display: none;" name="username" value="today"/>
 <input id="file" type="file" name="UploadFile" value="file">
 <input type="button" value="确定" onclick="upload();">
 </form>
 <hr>
 <div>
-<div style="width: 45%;height: 560px;float: left;background-color: #E7E7E7">
+<div style="width: 100%;float: left;">
 <table width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" style="margin-top:8px;margin-right:310px;font-size: 12px;text-align: center;">
-	<tr bgcolor="#E7E7E7" height="30px;">
-	<td width="150">名称</td><td width="100" >上传时间</td><td width="100">管理</td></tr>
+	<tr bgcolor="#E7E7E7" height="40px;">
+	<td width="150">名称</td><td width="100" >上传时间</td><td width="100" >上传者</td><td width="100">管理</td></tr>
 	<c:forEach items="${pricelist}" var="list">
 	<tr><td><a><img alt="" src="<%=request.getContextPath()%>/img/excel.png" align="top"><span>${list[0]}.xls</span></a></td><td>${list[1]}</td>
 	<td><button type="button" onclick="lookprice('${list[0]}')">查看</button>&nbsp;&nbsp;&nbsp;<button type="button" onclick="delprice('${list[0]},${list[2]}')">删除</button></td></tr>
 </c:forEach>
 </table>
 </div>
-<div id="info" style="border: 2px solid white; float: left; width: 54%;height: 528px;overflow: scroll; padding-bottom: 30px;display: none;">
+<div class="tip"></div>
+<div class="title">
+	</div>
+	<div class="tablehead"></div>
+<div id="info">
 	<table id="infoprice" width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#D1DDAA" style="font-size: 12px;text-align: center;">
-	 
-	
-</table>
+	 </table>
 </div></div>
 </body>
 <script type="text/javascript">
@@ -68,6 +124,8 @@ pageEncoding="UTF-8"%>
 	}
 	function lookprice(str){
 		$("#infoprice").empty();
+		$(".tip").show()
+		$(".title").show()
 		$("#info").fadeOut();
 		setTimeout("start('"+str+"')","300");
 	}
@@ -86,9 +144,21 @@ pageEncoding="UTF-8"%>
 				
 				
 				
-				var htm="<tr bgcolor='#E7E7E7' height='30px;''><td colspan='7'style='font:normal 16px/30px Georgia,serif;'>"+str+"</td></tr>";
-				$("#infoprice").append(htm);
+				var htm1=""+str+"<a>价格信息预览</a><a style='float: right;'><button style='margin:5px;' onclick='shutoff()'>X</button></a>";
+				$(".title").append(htm1);
 				for(var i=0;i<size;i++){
+					if(i==0){
+						headhtml="<table id='titlehead' width='100%' border='0' cellpadding='9' cellspacing='1' bgcolor='#9DC424' style='font-size: 12px;text-align: center;color:white;'><tr><td>"+json.data[i].city+
+				         "</td><td>"+json.data[i].mincharge+
+				         "</td><td>"+json.data[i].no1+
+				         "</td><td>"+json.data[i].no2+
+					     "</td><td>"+json.data[i].no3+
+					     "</td><td>"+json.data[i].no4+
+					     "</td><td>"+json.data[i].no5+
+					     "</td></tr></table>"
+						$('.tablehead').append(headhtml)
+						$(".tablehead").fadeIn()
+					}else{
 					var html="<tr><td>"+json.data[i].city+
 					         "</td><td>"+json.data[i].mincharge+
 					         "</td><td>"+json.data[i].no1+
@@ -103,7 +173,18 @@ pageEncoding="UTF-8"%>
 			   
 				}
 				}
+				}
 			});}
+	function shutoff(){
+		$(".tablehead").hide()
+		$(".tip").hide()
+		$(".title").hide()
+		$("#info").hide();
+		$("#infoprice").empty();
+		$(".title").empty();
+		$(".tablehead").empty();
+	}	
+		
 	function upload(){
 		var File=document.getElementById("file");
 		var str=File.value;

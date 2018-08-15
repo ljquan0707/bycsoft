@@ -16,6 +16,7 @@ public class Goodprice {
 	private String no3;
 	private String no4;
 	private String no5;
+	private String username;
 	private Date createtime;
 	
 	@Id
@@ -26,6 +27,12 @@ public class Goodprice {
 		this.id = id;
 	}
 	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 	public int getCustomerid() {
 		return customerid;
 	}
